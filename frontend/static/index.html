@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CloudOps Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <section id="auth-view" class="auth-layout">
+        <div class="hero-copy">
+          <p class="eyebrow">Cloud Engineer Portfolio Project</p>
+          <h1>CloudOps Dashboard</h1>
+          <p class="hero-text">
+            Demonstrate three-tier architecture, role-based access, and
+            operational service management with separate customer and admin views.
+          </p>
+          <div class="credential-grid">
+            <article class="credential-card">
+              <p class="hero-label">Admin Demo</p>
+              <p><strong>Username:</strong> admin</p>
+              <p><strong>Password:</strong> AdminPass123!</p>
+              <button
+                type="button"
+                class="secondary-btn fill-btn"
+                data-username="admin"
+                data-password="AdminPass123!"
+              >
+                Use Admin Login
+              </button>
+            </article>
+            <article class="credential-card">
+              <p class="hero-label">Customer Demo</p>
+              <p><strong>Username:</strong> customer</p>
+              <p><strong>Password:</strong> CustomerPass123!</p>
+              <button
+                type="button"
+                class="secondary-btn fill-btn"
+                data-username="customer"
+                data-password="CustomerPass123!"
+              >
+                Use Customer Login
+              </button>
+            </article>
+          </div>
+        </div>
+
+        <section class="panel auth-panel">
+          <div class="panel-header">
+            <h2>Sign In</h2>
+            <p>Admin can manage services. Customer can review operational status.</p>
+          </div>
+          <form id="login-form" class="service-form auth-form">
+            <label class="full-width">
+              Username
+              <input id="login-username" type="text" name="username" required />
+            </label>
+            <label class="full-width">
+              Password
+              <input id="login-password" type="password" name="password" required />
+            </label>
+            <button type="submit">Login</button>
+          </form>
+          <p id="login-message" class="message" aria-live="polite"></p>
+        </section>
+      </section>
+
+      <main id="dashboard-view" class="hidden">
+        <header class="hero app-hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Role-Based Operations Dashboard</p>
+            <h1>CloudOps Dashboard</h1>
+            <p class="hero-text">
+              Monitor platform components, communicate service health, and show
+              recruiters a clean separation between customer access and admin operations.
+            </p>
+          </div>
+          <div class="hero-panel">
+            <div class="topbar-meta">
+              <p class="hero-label">Signed In As</p>
+              <p id="user-full-name" class="identity-line"></p>
+              <span id="role-badge" class="role-badge"></span>
+            </div>
+            <button id="logout-button" type="button" class="danger-btn">
+              Logout
+            </button>
+          </div>
+        </header>
+
+        <section class="summary-grid" aria-label="Service summary">
+          <article class="summary-card">
+            <span>Total Services</span>
+            <strong id="total-count">0</strong>
+          </article>
+          <article class="summary-card healthy">
+            <span>Healthy</span>
+            <strong id="healthy-count">0</strong>
+          </article>
+          <article class="summary-card warning">
+            <span>Warning</span>
+            <strong id="warning-count">0</strong>
+          </article>
+          <article class="summary-card critical">
+            <span>Critical</span>
+            <strong id="critical-count">0</strong>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <section id="admin-panel" class="panel">
+            <div class="panel-header">
+              <h2>Admin Control Panel</h2>
+              <p>Create and manage tracked services from the operations side.</p>
+            </div>
+            <form id="service-form" class="service-form">
+              <label>
+                Service Name
+                <input type="text" name="name" placeholder="API Gateway" required />
+              </label>
+              <label>
+                Environment
+                <input type="text" name="environment" placeholder="Production" required />
+              </label>
+              <label>
+                Owner
+                <input type="text" name="owner" placeholder="Platform Team" required />
+              </label>
+              <label>
+                Status
+                <select name="status" required>
+                  <option value="Healthy">Healthy</option>
+                  <option value="Warning">Warning</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </label>
+              <label>
+                Endpoint
+                <input
+                  type="text"
+                  name="endpoint"
+                  placeholder="https://gateway.internal"
+                />
+              </label>
+              <label class="full-width">
+                Operational Notes
+                <textarea
+                  name="notes"
+                  rows="4"
+                  placeholder="Describe why this service matters or what needs attention."
+                ></textarea>
+              </label>
+              <button type="submit">Create Service</button>
+            </form>
+            <p id="form-message" class="message" aria-live="polite"></p>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h2>Tracked services</h2>
+              <p id="table-subtitle">
+                Update platform health in place and review operational notes.
+              </p>
+            </div>
+            <p id="readonly-message" class="info-banner hidden">
+              Customer access is read-only. Sign in as admin to create or change services.
+            </p>
+            <div id="table-container" class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Environment</th>
+                    <th>Owner</th>
+                    <th>Endpoint</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="services-body"></tbody>
+              </table>
+            </div>
+            <p id="table-message" class="message" aria-live="polite"></p>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
