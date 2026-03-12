@@ -69,6 +69,7 @@ Recruiters hiring for cloud engineer and junior DevOps roles often want to see m
 │   ├── tests
 │   ├── Dockerfile
 │   └── requirements.txt
+├── docs
 ├── frontend
 │   ├── static
 │   ├── Dockerfile
@@ -77,6 +78,14 @@ Recruiters hiring for cloud engineer and junior DevOps roles often want to see m
 ├── .env.example
 └── README.md
 ```
+
+## Deep-Dive Docs
+
+If you want long beginner-friendly explanations, read these files:
+
+- `docs/PROJECT_CODE_EXPLAINED.md`
+- `docs/DOCKER_AND_COMPOSE_EXPLAINED.md`
+- `docs/AWS_DEPLOYMENT_STEP_BY_STEP.md`
 
 ## API Overview
 
